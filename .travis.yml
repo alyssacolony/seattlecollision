@@ -1,0 +1,27 @@
+language: python
+
+python:
+    - 3.5
+    - 3.6
+
+branches:
+    only:
+        - master
+
+install:
+    - pip install coverage
+    - pip install coveralls
+    - pip install pylint
+    - pip install -r requirements.txt
+
+before_script:
+    - "pylint seattlecollision --score=y"
+
+script:
+    - coverage run -m unittest discover -s seattlecollision/tests 
+
+after_success:
+    - coverage report
+    - coveralls
+
+
